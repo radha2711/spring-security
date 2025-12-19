@@ -35,7 +35,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity security){
-      return  security
+     // CSRF is disabled because we use stateless JWT authentication (no cookies / sessions).
+      return  security.csrf(c->c.disable())
                 .authorizeHttpRequests(auth-> auth
                         .requestMatchers("/login", "/register").permitAll()
                         .anyRequest().authenticated())
